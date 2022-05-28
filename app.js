@@ -1,12 +1,14 @@
 const express = require("express");
+const cors = require("cors");
 
-const db = require("./data/Database");
+const db = require("./Data/Database");
 
 const app = express();
 
-app.use(express.static("public"));
+app.use("/api/public", express.static("./Public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const port = process.env.PORT || 5000;
 
