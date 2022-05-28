@@ -1,6 +1,6 @@
 const express = require("express");
 
-const db = require("./data/database");
+const db = require("./data/Database");
 
 const app = express();
 
@@ -8,7 +8,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 db.connectToDatabase()
   .then(() => {

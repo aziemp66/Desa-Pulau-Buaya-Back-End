@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npx prettier --write . && nodemon app.js",
+    "start": "npx prettier --write . && nodemon App.js",
     "prepare": "husky install"
   },
   "repository": {
