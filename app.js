@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 const db = require("./Data/Database");
 
@@ -8,6 +9,8 @@ const authRoutes = require("./Router/Auth.routes");
 const errorHandlerMiddleware = require("./Middlewares/ErrorHandler");
 
 const app = express();
+
+dotenv.config();
 
 app.use("/api/public", express.static("./Public"));
 app.use(express.json());
