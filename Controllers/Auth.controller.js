@@ -66,7 +66,13 @@ const loginUser = async (req, res, next) => {
   }
 
   //generate token
-  const token = generateUserToken({ id: user._id, name: user.name });
+  const token = generateUserToken({
+    id: user._id,
+    name: user.name,
+    role: user.role,
+  });
+
+  res.json({ token, message: "Successfully Logged in" });
 };
 
 module.exports = {
