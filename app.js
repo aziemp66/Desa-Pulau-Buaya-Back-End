@@ -3,12 +3,20 @@ const cors = require("cors");
 
 const db = require("./Data/Database");
 
+const authRoutes = require("./Router/Auth.routes");
+
+const errorHandlerMiddleware = require("./Middlewares/ErrorHandler");
+
 const app = express();
 
 app.use("/api/public", express.static("./Public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+app.use("/api/auth", authRoutes);
+
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
 
