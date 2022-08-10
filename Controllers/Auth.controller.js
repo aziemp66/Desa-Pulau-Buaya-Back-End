@@ -62,9 +62,7 @@ const loginUser = async (req, res, next) => {
 
   //compare password
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return next(new Error("Wrong email or password"));
-  }
+  if (!isMatch) return next(new Error("Wrong email or password"));
 
   //generate token
   const token = generateUserToken({
@@ -148,9 +146,26 @@ const resetUserPassword = async (req, res, next) => {
   }
 };
 
+const adminLogin = async (req, res, next) => {
+  const { username, password } = req.body;
+
+  if (
+    username !== process.env.ADMIN_USERNAME ||
+    password !== process.env.ADMIN_PASSWORD
+  )
+    return next(new Error("Wrong identity"));
+
+  const token = generateUserToken({
+    role: "admin",
+  });
+
+  res.json({ token, message: "Successfully Logged in" });
+};
+
 module.exports = {
   register: registerUser,
   login: loginUser,
   forgotPassword: forgotPassword,
   resetPassword: resetUserPassword,
+  adminLogin: adminLogin,
 };
