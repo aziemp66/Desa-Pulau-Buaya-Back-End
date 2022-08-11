@@ -22,7 +22,19 @@ const loginUserValidation = (data) => {
   return schema.validate(data);
 };
 
+const productPostValidation = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(50).required(),
+    price: Joi.number().required(),
+    description: Joi.string().min(3).max(5000).required(),
+    images: Joi.array().optional(),
+    tags: Joi.array().min(1).required(),
+  });
+  return schema.validate(data);
+};
+
 module.exports = {
   registerValidation: registerUserValidation,
   loginValidation: loginUserValidation,
+  productPostValidation: productPostValidation,
 };
