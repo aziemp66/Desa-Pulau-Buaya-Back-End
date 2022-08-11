@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const db = require("./Data/Database");
 
 const authRoutes = require("./Router/Auth.routes");
+const adminRoutes = require("./Router/Admin.routes");
 
 const errorHandlerMiddleware = require("./Middlewares/ErrorHandler");
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(errorHandlerMiddleware);
 
