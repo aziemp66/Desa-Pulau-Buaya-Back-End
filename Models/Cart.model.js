@@ -5,12 +5,8 @@ const CartSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
-  totalPrice: {
-    type: Number,
-    required: true,
-  },
-  totalQuantity: {
-    type: Number,
+  userId: {
+    type: mongoose.SchemaTypes.ObjectId,
     required: true,
   },
 });

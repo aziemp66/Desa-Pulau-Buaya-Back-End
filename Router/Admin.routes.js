@@ -12,4 +12,10 @@ router.patch("/product/:id", adminController.updateProduct);
 
 router.delete("/product/:id", adminController.deleteProduct);
 
+router.get("/order", adminController.getAllOrder);
+
+router.patch("/order/:id", adminController.changeOrderStatus);
+
+router.delete("/order/:id", adminController.deletingOrder);
+
 module.exports = router;

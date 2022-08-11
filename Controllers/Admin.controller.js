@@ -1,4 +1,6 @@
 const Product = require("../Models/Product.model");
+const Order = require("../Models/Order.model");
+
 const validation = require("../Utility/Validation");
 
 const addProduct = async (req, res, next) => {
@@ -79,10 +81,57 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
+const getAllOrder = async (req, res, next) => {
+  try {
+    const orders = await Order.find();
+    res.json({ orders, message: "Orders found successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const changeOrderStatus = async (req, res, next) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  //check if status is valid
+  if (
+    status !== "pending" &&
+    status !== "completed" &&
+    status !== "cancelled" &&
+    status !== "delivered" &&
+    status !== "returned" &&
+    status !== "processing"
+  ) {
+    return next(new Error("Invalid status"));
+  }
+
+  try {
+    const order = await Order.findByIdAndUpdate(id, { status });
+    res.json({ order, message: "Order status changed successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const deletingOrder = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const order = await Order.findByIdAndDelete(id);
+    res.json({ order, message: "Order deleted successfully" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   addProduct,
   getAllProducts,
   getProductById,
   updateProduct,
   deleteProduct,
+  getAllOrder,
+  changeOrderStatus,
+  deletingOrder,
 };
