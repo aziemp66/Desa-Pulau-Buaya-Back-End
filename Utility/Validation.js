@@ -33,8 +33,30 @@ const productPostValidation = (data) => {
   return schema.validate(data);
 };
 
+const OrderPostValidation = (data) => {
+  const schema = Joi.object({
+    userId: Joi.string().required(),
+    products: Joi.array()
+      .min(1)
+      .required()
+      .items(
+        Joi.object({
+          productId: Joi.string().required(),
+          quantity: Joi.number().required(),
+        })
+      ),
+    status: Joi.string()
+      .valid("pending", "completed", "cancelled", "returned")
+      .required(),
+    date: Joi.date().required(),
+  });
+
+  return schema.validate(data);
+};
+
 module.exports = {
   registerValidation: registerUserValidation,
   loginValidation: loginUserValidation,
   productPostValidation: productPostValidation,
+  OrderPostValidation: OrderPostValidation,
 };

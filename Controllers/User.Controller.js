@@ -1,6 +1,8 @@
 const Cart = require("../Models/Cart.model.js");
-const Product = require("../Models/Product.model.js");
+const Order = require("../Models/Order.model.js");
 const User = require("../Models/User.model.js");
+
+const validation = require("../Utility/Validation");
 
 const getCart = async (req, res, next) => {
   const { id } = req.user;
@@ -86,9 +88,30 @@ const updateProductQuantity = async (req, res, next) => {
   res.json({ message: "Product quantity updated successfully" });
 };
 
+const orderProducts = async (req, res, next) => {
+  const { id } = req.user;
+  const { products } = req.body;
+
+  const { error } = validation.OrderPostValidation(products);
+  if (error) return next(error);
+
+  const order = new Order({
+    userId: id,
+    products,
+    status: "pending",
+  });
+
+  try {
+    await order.save();
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   getCart,
   addProductToCart,
   removeProductFromCart,
   updateProductQuantity,
+  orderProducts,
 };
