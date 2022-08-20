@@ -46,7 +46,14 @@ const OrderPostValidation = (data) => {
         })
       ),
     status: Joi.string()
-      .valid("pending", "completed", "cancelled", "returned")
+      .valid(
+        "pending",
+        "completed",
+        "cancelled",
+        "returned",
+        "delivered",
+        "processing"
+      )
       .required(),
     date: Joi.date().required(),
   });
