@@ -1,6 +1,5 @@
 const Cart = require("../Models/Cart.model.js");
 const Order = require("../Models/Order.model.js");
-const User = require("../Models/User.model.js");
 
 const validation = require("../Utility/Validation");
 
@@ -57,7 +56,7 @@ const addProductToCart = async (req, res, next) => {
 };
 
 const removeProductFromCart = async (req, res, next) => {
-  const { productId } = req.body;
+  const { productId } = req.params;
   const { id } = req.user;
 
   const cart = await Cart.findOne({ userId: id });
